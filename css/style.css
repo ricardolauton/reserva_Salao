@@ -1,0 +1,490 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f0f2f5;
+  padding: 10px;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('../assets/img/fundo_tela.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+ 
+}
+
+:root {
+  --primary-gold: #b8860b;
+  --dark-elegant: #1a1a1a;
+  --accent-party: #8e44ad;
+  --exit-red: #c0392b;
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --success-green: #27ae60;
+}
+
+.tabela-scroll-container {
+    max-height: 540px; /* Altura aproximada para 12 moradores */
+    overflow-y: auto;  
+    border: 1px solid #ddd;
+    position: relative;
+}
+
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #212529; /* Mesma cor do table-dark */
+    color: white;
+    z-index: 5;
+}
+
+/* container de formulário e da tabela */
+.container {
+  background: rgba(255, 255, 255, 0.95);
+  /* Branco quase opaco para leitura */
+  color: #333;
+  /* Texto escuro dentro dos campos */
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 500px;
+  /* Largura máxima do formulário */
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.nome-condominio {
+    font-size: 2.2rem;             /* Tamanho grande */
+    color: #1b3b1e;                /* cor nome condominio */
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 4px;           
+    margin-bottom: 30px;
+    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.8);
+    font-family: 'Times New Roman', serif; 
+}
+
+.nome-condominio small {
+    font-size: 1.5rem;
+    color: white;
+    vertical-align: middle;
+    margin: 0 10px;
+}
+
+/* Ajuste para celular */
+@media (max-width: 600px) {
+    .nome-condominio {
+        font-size: 1.8rem;
+    }
+}
+
+/* Ajuste para a tabela  */
+div.container {
+  max-width: 900px;
+  overflow-x: auto;
+  
+}
+
+.mb-3 {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* MENU GRID */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
+  filter: brightness(1.2);
+}
+
+.btn-space {
+  background: linear-gradient(135deg, #b8860b, #daa520);
+}
+
+.btn-resident {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+}
+
+.btn-reserve {
+  background: linear-gradient(135deg, #8e44ad, #9b59b6);
+}
+
+.btn-agenda {
+  background: linear-gradient(135deg, #2980b9, #3498db);
+}
+
+.btn-exit {
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+  grid-column: span 2;
+}
+
+.btn-voltar {
+    background-color :#e74c3c ;
+    margin-top: 20px;
+    max-width: 250px;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    /* width: fit-content; Ocupa apenas o tamanho do texto */
+    /*min-width: 200px;*/
+}
+
+.btn-voltar:hover {
+    background-color: #5a6268 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
+.form-control {
+  #nome {
+    text-transform: capitalize; /* Deixa a primeira letra maiúscula visualmente */
+  }
+}
+
+.icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+/* EST  CALen --- */
+#calendar-section {
+  display: none;
+}
+
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background: var(--dark-elegant);
+  color: white;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.nav-btn {
+  background: var(--primary-gold);
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  background: #ddd;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.day-name {
+  font-weight: bold;
+  padding: 10px;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.day {
+  background: white;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: bold;
+  position: relative;
+}
+
+.day:hover:not(.empty) {
+  background: #fdf2d0;
+}
+
+.day.empty {
+  background: transparent;
+  cursor: default;
+}
+
+.day.has-reserve {
+  border-bottom: 4px solid var(--primary-gold);
+}
+
+.reserve-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary-gold);
+  border-radius: 50%;
+  margin-top: 4px;
+}
+
+/* RESERVAS  */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 10px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.close-modal {
+  cursor: pointer;
+  font-size: 24px;
+  color: #999;
+}
+
+.reserve-item {
+  background: #f9f9f9;
+  padding: 10px;
+  border-left: 4px solid var(--primary-gold);
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Botões */
+.btn-menu {
+    display: block;
+    margin: 20px auto; 
+    padding: 12px 25px;
+    background: #333; 
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+    width: fit-content; 
+}
+
+.btn-menu:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+    background: #555; 
+}
+
+/* Títulos */
+h1,
+h2 {
+  text-align: center;
+  color: #daa520;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+
+form {
+  margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+    margin-bottom: 2px;
+    font-size: 12px
+
+}
+
+.form-control, .form-select {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 13px;
+    height: auto;
+}
+
+input,
+select,
+button {
+  display: block;
+  margin: 10px 0;
+  padding: 8px;
+}
+
+button {
+  background-color: #b8860b;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Tabela */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.table th, .table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+#cpf {
+    /*max-width: 180px; */
+    letter-spacing: 1px; 
+}
+
+#telefone {
+    /* max-width: 200px;*/
+
+    letter-spacing: 1px;
+}
+
+#email {
+    text-transform: lowercase; 
+}
+
+#proprietario, #ativo {
+    max-width: 100px; 
+    padding: 6px;
+    cursor: pointer;
+}
+
+.ajuste-selecao {
+    display: flex;
+    gap: 20px; 
+}
+
+
+/* mudar cor do placeholder*/
+::placeholder {
+    color: #dadd0b; 
+    opacity: 1;      
+    font-style: italic; 
+}
+
+
+/* Excluir  */
+.btn-editar-mini, .btn-excluir-mini {
+    width: 70px !important;    
+    height: 24px !important;   
+    padding: 0 !important;      
+    font-size: 11px !important;
+    line-height: 24px !important; 
+    border-radius: 4px;
+    border: none;
+    color: white !important;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    margin: 2px !important;   
+}
+
+.btn-editar-mini { background-color: #2980b9 !important; }
+.btn-excluir-mini { background-color: #c0392b !important; }
+
+.table td {
+    padding: 5px 10px !important; 
+    vertical-align: middle;       
+    font-size: 13px;              
+}
+
+.table th {
+    padding: 8px 10px !important;
+}
+
+.btn-excluir-mini:hover {
+    background-color: #e74c3c !important;
+    transform: scale(1.05);
+}
+
+.acoes-form {
+    display: flex;
+    justify-content: center; 
+    gap: 15px;               
+    margin-top: 20px;
+    width: 100%;
+}
+
+.btn-menu {
+    margin: 0 !important;    
+    width: auto !important;  
+    padding: 10px 20px !important;
+}
+
+.btn-voltar {
+    margin: 0 !important;    
+    width: auto !important;
+    padding: 10px 20px !important;
+    background-color: #c0392b; 
+}
+
+#nome {
+    text-transform: none !important; 
+}
+
+#corpoTabelaMoradores td {
+    text-transform: none !important;
+}

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro de moradores</title>
+  <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+  <h1>Cadastro de Moradores</h1>
+
+  <form id="formMorador" class="container">
+    <div class="mb-3">
+      <label for="bloco" class="form-label">Bloco</label>
+      <input type="text" id="bloco" class="form-control" maxlength="1"
+        placeholder="              digite apenas a letra do bloco"
+        oninput="this.value = this.value.toUpperCase().replace(/[^A-Z]/g, '')" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="numero_apartamento" class="form-label">Número do Apartamento</label>
+      <input type="text" id="numero_apartamento" class="form-control" maxlength="3" oninput="validarApto(this)"
+        placeholder="                digite valor entre 1 a 999" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome do Morador</label>
+      <input type="text" id="nome" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="cpf" class="form-label">CPF</label>
+      <input type="text" id="cpf" class="form-control" placeholder="000.000.000-00        digite apenas os numeros"
+        maxlength="14" oninput="mascaraCPF(this)" required />
+    </div>
+
+    <div class="mb-3">
+      <label for="telefone" class="form-label">Telefone</label>
+      <input type="text" id="telefone" class="form-control" placeholder="(00) 00000-0000" maxlength="15"
+        oninput="mascaraTelefone(this)" />
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">E-mail</label>
+      <input type="email" id="email" class="form-control" placeholder="exemplo@dominio.com"
+        oninput="validarEmailAoDigitar(this)" />
+    </div>
+
+    <div class="ajuste-selecao">
+      <div class="mb-3">
+        <label for="proprietario" class="form-label">Proprietário</label>
+        <select id="proprietario" class="form-select">
+          <option value="true">Sim</option>
+          <option value="false">Não</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="ativo" class="form-label">Morador Ativo</label>
+        <select id="ativo" class="form-select">
+          <option value="true">Sim</option>
+          <option value="false">Não</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="acoes-form">
+      <button type="submit" class="btn-menu">Salvar Morador</button>
+      <button type="button" onclick="voltarMenu()" class="btn-voltar">Voltar ao Menu</button>
+    </div>
+
+  </form>
+
+
+  <!-- Lista de     moradores -->
+  <div class="container" style="margin-top: 30px">
+    <h2>Lista de Moradores</h2>
+    <div class="tabela-scroll-container">
+      <table class="table table-hover">
+        <thead class="table-dark sticky-top">
+          <tr>
+            <th>Bloco/Apto</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>Status</th>
+            <th class="text-center">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="corpoTabelaMoradores">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!--
+    <button onclick="voltarMenu()" class="btn-voltar">
+      Voltar ao Menu Principal
+    </button>
+  -->
+  <script src="js/script.js"></script>
+</body>
+
+</html>

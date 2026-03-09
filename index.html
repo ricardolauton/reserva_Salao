@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Sala </title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+   <div class="container">
+           <div id="menu-section">
+               <h1>Reserva de Salas para Eventos</h1>
+               <div class="nome-condominio">
+                      Velasquez & Salvador Dalí 
+               </div>
+               <!-- <p class="subtitle">Condominio Velasquez e Salvador Dali </p> -->
+               <div class="menu-grid">
+               <!--<button class="btn btn-resident"><span class="icon">🏠</span> Moradores</button> --> 
+               <!--<button class="btn btn-resident" onclick="abrirCadastroMorador()"><span class="icon">🏠</span> Moradores</button>-->
+
+               <button class="btn btn-resident" id="btnAbrirCadastro"><span class="icon">🏠</span>Moradores</button>
+
+               <button class="btn btn-space"><span class="icon">🪑</span> Espaços</button>
+               <button class="btn btn-reserve"><span class="icon">🥳</span> Reservar</button>
+               <button class="btn btn-agenda" onclick="toggleView()"><span class="icon">📑</span> Agenda</button>
+               <button class="btn btn-exit" id="exitBtn"><span class="icon">🚪</span> Sair</button>
+           </div>
+   </div>
+   
+   <div id="calendar-section">
+        <div class="calendar-nav">
+            <button class="nav-btn" onclick="changeMonth(-1)">❮</button>
+            <h2 id="monthYearTitle" style="margin:0;"></h2>
+            <button class="nav-btn" onclick="changeMonth(1)">❯</button>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+            <button onclick="toggleView()" style="margin-top:20px; cursor:pointer; background:none; border:none; text-decoration:underline;">Voltar ao Menu Principal</button>
+        </div>
+
+
+        <div class="modal-overlay" id="modalOverlay">
+          <div class="modal-content">
+            <div class="modal-header">
+                 <h3 id="modalDateTitle" style="margin:0; color:var(--primary-gold);"></h3>
+                 <span class="close-modal" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="reservesList"> </div>
+              <button onclick="alert('Funcionalidade de Nova Reserva em breve!')" style="width:100%; padding:10px; background:var(--primary-gold); color:white; border:none; border-radius:5px; cursor:pointer; margin-top:10px;">+ Nova Reserva</button>
+            </div>
+         </div>
+       </div>
+   </div>       
+  
+<script>
+
+  const reservasDB = {
+// IMPLEMENTAR AQUI OS DADOS DA RESERVA NO FORMATO ABAIXO 
+        //"2026-03-05": [{morador: "João Silva", espaco: "Salão A", horario: "18:00 - 22:00"}],
+        //"2026-03-12": [{morador: "Maria Oliveira", espaco: "Churrasqueira", horario: "12:00 - 16:00"}],
+    }
+
+    let currentDate = new Date();
+
+    function toggleView() {
+        document.getElementById('menu-section').classList.toggle('hidden');
+        const cal = document.getElementById('calendar-section');
+        cal.style.display = (cal.style.display === 'block') ? 'none' : 'block';
+        if(cal.style.display === 'block') renderCalendar();
+    }
+
+    function renderCalendar() {
+        const grid = document.getElementById('calendarGrid');
+        const title = document.getElementById('monthYearTitle');
+        grid.innerHTML = '';
+
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        title.innerText = `${monthNames[month]} ${year}`;
+
+        ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"].forEach(d => grid.innerHTML += `<div class="day-name">${d}</div>`);
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        for (let i = 0; i < firstDay; i++) grid.innerHTML += `<div class="day empty"></div>`;
+
+        for (let i = 1; i <= daysInMonth; i++) {
+            const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+            const hasReserve = reservasDB[dateKey];
+            
+            const dayDiv = document.createElement('div');
+            dayDiv.className = `day ${hasReserve ? 'has-reserve' : ''}`;
+            dayDiv.innerHTML = `<span>${i}</span>${hasReserve ? '<div class="reserve-dot"></div>' : ''}`;
+            
+            dayDiv.onclick = () => showReserves(dateKey, i, monthNames[month], year);
+            grid.appendChild(dayDiv);
+        }
+    }
+
+    function abrirCadastroMorador() {
+    // Esconde o menu principal
+    document.getElementById("menu-section").classList.add("hidden");
+
+    // Mostra a seção de moradores
+    document.getElementById("moradores-section").classList.remove("hidden");
+
+    // Carrega os moradores já cadastrados do backend
+    carregarMoradores();
+    }
+
+    function showReserves(key, day, monthName, year) {
+        document.getElementById('modalDateTitle').innerText = `${day} de ${monthName}`;
+        const list = document.getElementById('reservesList');
+        list.innerHTML = '';
+
+        const reservas = reservasDB[key];
+        if (reservas) {
+            reservas.forEach(res => {
+                list.innerHTML += `
+                    <div class="reserve-item">
+                        <strong>${res.morador}</strong><br>
+                        <small>📍 ${res.espaco} | ⏰ ${res.horario}</small>
+                    </div>`;
+            });
+        } else {
+            list.innerHTML = '<p style="color:#666; font-style:italic;">Nenhuma reserva para este dia.</p>';
+        }
+        document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; }
+    function changeMonth(offset) { currentDate.setMonth(currentDate.getMonth() + offset); renderCalendar(); }
+  
+document.getElementById('exitBtn').onclick = () => {
+    if (confirm("Deseja realmente sair do sistema Velasquez & Salvador Dalí?")) {
+        // Tenta fechar a janela
+        window.close();
+
+        // Se a janela não fechar (comum após navegar), mostramos a tela de encerramento
+        setTimeout(() => {
+            if (!window.closed) {
+                document.body.innerHTML = `
+                    <div style="
+                        display: flex; 
+                        flex-direction: column; 
+                        align-items: center; 
+                        justify-content: center; 
+                        height: 100vh; 
+                        background-color: #1a1a1a; 
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                        color: #d4af37;
+                        text-align: center;">
+                        <h1 style="border-bottom: 2px solid #d4af37; padding-bottom: 10px;">Sessão Encerrada</h1>
+                        <p style="color: #fff; margin-top: 20px;">Para sua total segurança, feche esta aba do navegador.</p>
+                        <button onclick="location.reload()" style="
+                            margin-top: 30px;
+                            padding: 12px 25px; 
+                            background: transparent; 
+                            color: #d4af37; 
+                            border: 1px solid #d4af37; 
+                            border-radius: 5px; 
+                            cursor: pointer;
+                            transition: all 0.3s ease;"
+                            onmouseover="this.style.background='#d4af37'; this.style.color='#1a1a1a'"
+                            onmouseout="this.style.background='transparent'; this.style.color='#d4af37'">
+                            Reabrir Sistema
+                        </button>
+                    </div>
+                `;
+            }
+        }, 300);
+    }
+};
+
+</script>
+
+<script src="js/script.js"></script>
+
+<script>
+    document.getElementById('btnAbrirCadastro').addEventListener('click', function() {
+        window.location.href = 'cad_morador_mod.html';
+    });
+</script>
+
+</body>
+</html>

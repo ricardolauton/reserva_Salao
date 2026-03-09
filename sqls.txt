@@ -1,0 +1,14 @@
+CREATE TABLE moradores (id SERIAL PRIMARY KEY,
+                        bloco VARCHAR(10),
+                        numero_apartamento INTEGER CHECK (numero_apartamento BETWEEN 1 AND 999),
+                        nome VARCHAR(100) NOT NULL, 
+                        cpf VARCHAR(14) NOT NULL,
+                        telefone VARCHAR(15),
+                        email VARCHAR(100),
+                        proprietario BOOLEAN DEFAULT FALSE,
+                        ativo BOOLEAN DEFAULT TRUE,
+						dt_desativado TIMESTAMP,
+                        data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+						dt_cancelado  TIMESTAMP);
+
+
