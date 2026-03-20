@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Espaços - Velasquez & Dalí</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <h1>Cadastro de Espaços e Salões</h1>
+
+    <form id="formSalao" class="container">
+        <div class="mb-3">
+            <label for="cod_salao" class="form-label">Código do Salão (Único)</label>
+            <input type="text" id="cod_salao" class="form-control" placeholder="Ex: SL01" required
+                oninput="this.value = this.value.toUpperCase()" maxlength="10" />
+            <small style="color: #888;">* Este código não poderá ser repetido.</small>
+        </div>
+
+        <div class="mb-3">
+            <label for="nome_salao" class="form-label">Nome do Salão/Espaço</label>
+            <input type="text" id="nome_salao" class="form-control" placeholder="Ex: Salão de Festas Velasquez"
+                required />
+        </div>
+
+        <div class="mb-3">
+            <label for="cap_salao" class="form-label">Capacidade (Pessoas)</label>
+            <input type="number" id="cap_salao" class="form-control" placeholder="Ex: 50" required />
+        </div>
+
+        <div class="ajuste-selecao">
+            <div class="mb-3">
+                <label for="bloq_salao" class="form-label">Bloquear Espaço?</label>
+                <select id="bloq_salao" class="form-select" onchange="toggleBloqueio(this.value)">
+                    <option value="false">Não</option>
+                    <option value="true">Sim</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="secao-bloqueio" class="hidden"
+            style="background: #fff3f3; padding: 15px; border-radius: 10px; margin-top: 10px; border: 1px solid #ffcccc;">
+            <div class="mb-3">
+                <label for="mot_bloq" class="form-label">Motivo do Bloqueio</label>
+                <textarea id="mot_bloq" class="form-control" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="resp_bloq" class="form-label">Responsável pelo Bloqueio</label>
+                <input type="text" id="resp_bloq" class="form-control" />
+            </div>
+        </div>
+
+        <div class="acoes-form">
+            <button type="submit" class="btn-menu" id="btnSalvar">Salvar Espaço</button>
+            <button type="button" onclick="cancelarOperacao()" class="btn-voltar"
+                style="background: #666;">Cancelar</button>
+            <button type="button" onclick="window.location.href='index.html'" class="btn-voltar">Voltar ao
+                Início</button>
+        </div>
+    </form>
+
+    <div class="container" style="max-width: 950px; margin-top: 30px">
+        <h2>Espaços Cadastrados</h2>
+        <div class="tabela-scroll-container">
+            <table class="table">
+                <thead class="table-dark sticky-top">
+                    <tr>
+                        <th>Cód</th>
+                        <th>Nome</th>
+                        <th>Capac.</th>
+                        <th>Status</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTabelaSalas"></tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div id="modalDesbloqueio" class="modal-overlay">
+        <div class="modal-content">
+            <h3 style="color: var(--primary-gold)">🔓 Liberação de Espaço</h3>
+            <p style="color: #ccc; font-size: 0.9em; text-align: center; margin-bottom: 20px;">
+                Confirme os dados para registrar a abertura do salão no histórico.
+            </p>
+
+            <div class="mb-3">
+                <label class="form-label" style="color: white;">Responsável pela Liberação</label>
+                <input type="text" id="resp_liberacao" class="form-control" placeholder="Nome do profissional">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" style="color: white;">Data da Liberação</label>
+                <input type="date" id="data_liberacao" class="form-control">
+            </div>
+
+            <div class="modal-acoes">
+                <button class="btn-menu" onclick="confirmarDesbloqueio()"
+                    style="background: #27ae60; margin: 0;">Confirmar</button>
+                <button class="btn-voltar" onclick="fecharModal()" style="margin: 0;">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script_salas.js"></script>
+</body>
+
+</html>

@@ -485,6 +485,76 @@ button {
     text-transform: none !important; 
 }
 
+.text-center button {
+    margin: 0 4px; /* Espaçamento horizontal entre os botões da tabela */
+    min-width: 80px; /* Garante que os botões tenham tamanhos similares */
+}
+
+
 #corpoTabelaMoradores td {
     text-transform: none !important;
+}
+
+/* Overlay do Modal - Fundo escurecido */
+.modal-overlay {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* Black piano com opacidade */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Efeito de desfoque ao fundo */
+}
+
+/* Caixa do Modal */
+.modal-content {
+    background: #1a1a1a; /* Dark mode */
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 450px;
+    border: 1px solid var(--primary-gold); /* Borda dourada */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s ease;
+    max-width: 400px; /* Largura ideal para desktop e mobile */
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+}
+
+/* Botões dentro do modal para não ficarem grudados */
+.modal-content .btn-menu, 
+.modal-content .btn-voltar {
+    margin-top: 15px;
+    width: 100%; /* Botões de largura total no modal */
+}
+
+/* Container dos botões no modal */
+.modal-acoes {
+    display: flex;
+    gap: 10px; /* Espaço entre os botões */
+    margin-top: 25px;
+    justify-content: space-between;
+}
+
+/* Garante que os botões ocupem o mesmo espaço proporcional */
+.modal-acoes button {
+    flex: 1; 
+    padding: 12px 5px;
+    font-size: 0.9em;
+    white-space: nowrap; /* Impede que o texto quebre linha */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }

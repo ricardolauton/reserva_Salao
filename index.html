@@ -17,12 +17,10 @@
                </div>
                <!-- <p class="subtitle">Condominio Velasquez e Salvador Dali </p> -->
                <div class="menu-grid">
-               <!--<button class="btn btn-resident"><span class="icon">🏠</span> Moradores</button> --> 
-               <!--<button class="btn btn-resident" onclick="abrirCadastroMorador()"><span class="icon">🏠</span> Moradores</button>-->
-
+              
                <button class="btn btn-resident" id="btnAbrirCadastro"><span class="icon">🏠</span>Moradores</button>
 
-               <button class="btn btn-space"><span class="icon">🪑</span> Espaços</button>
+               <button class="btn btn-space" id="btnAbrirSalas"><span class="icon">🪑</span> Espaços</button>
                <button class="btn btn-reserve"><span class="icon">🥳</span> Reservar</button>
                <button class="btn btn-agenda" onclick="toggleView()"><span class="icon">📑</span> Agenda</button>
                <button class="btn btn-exit" id="exitBtn"><span class="icon">🚪</span> Sair</button>
@@ -182,6 +180,12 @@ document.getElementById('exitBtn').onclick = () => {
 <script>
     document.getElementById('btnAbrirCadastro').addEventListener('click', function() {
         window.location.href = 'cad_morador_mod.html';
+    });
+</script>
+
+<script>
+    document.getElementById('btnAbrirSalas').addEventListener('click', function() {
+        window.location.href = 'cad_salas_mod.html';
     });
 </script>
 
