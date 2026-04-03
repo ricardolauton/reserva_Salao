@@ -99,13 +99,13 @@
     }
 
     function abrirCadastroMorador() {
-    // Esconde o menu principal
+    // Esconde menu principal
     document.getElementById("menu-section").classList.add("hidden");
 
-    // Mostra a seção de moradores
+    // Mostra moradores
     document.getElementById("moradores-section").classList.remove("hidden");
 
-    // Carrega os moradores já cadastrados do backend
+    // Carrega morador cadastrados
     carregarMoradores();
     }
 
@@ -137,7 +137,6 @@ document.getElementById('exitBtn').onclick = () => {
         // Tenta fechar a janela
         window.close();
 
-        // Se a janela não fechar (comum após navegar), mostramos a tela de encerramento
         setTimeout(() => {
             if (!window.closed) {
                 document.body.innerHTML = `

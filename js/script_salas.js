@@ -35,7 +35,7 @@ function cancelarOperacao() {
     }
 }
 
-// LISTAGEM (Onde o botão Editar e Liberar aparecem)
+// LISTAGEM 
 async function listarSalas() {
     const tabela = document.getElementById('corpoTabelaSalas');
     try {
@@ -51,7 +51,7 @@ async function listarSalas() {
             let botoesAcao = "";
 
             if (s.bloq_salao) {
-                // REGRA: Se bloqueado, apenas Excluir e Liberar (Editar some)
+                // REGRA: Se bloqueado, apenas Excluir e Liberar
                 botoesAcao = `
                     <button class="btn-excluir-mini" onclick="excluirSala(${s.id})">Excluir</button>
                     <button class="btn-editar-mini" style="background:#27ae60 !important" onclick="abrirModalDesbloqueio(${s.id})">Liberar</button>
@@ -90,8 +90,8 @@ document.getElementById('cod_salao').addEventListener('blur', async function() {
 
         if (data.existe) {
             alert(`⚠️ Atenção: O código "${codigo}" já está sendo usado por outro espaço.`);
-            this.value = ""; // Limpa o campo
-            this.focus();    // Devolve o foco para o usuário corrigir
+            this.value = ""; 
+            this.focus();    
         }
     } catch (e) {
         console.error("Erro ao validar código único.");
@@ -106,7 +106,6 @@ document.getElementById('formSalao').addEventListener('submit', async function (
     const mot = document.getElementById('mot_bloq').value.trim();
     const resp = document.getElementById('resp_bloq').value.trim();
 
-    // CONSISTÊNCIA: Validação manual antes de enviar
     if (isBloqueado && (!mot || !resp)) {
         alert("⚠️ Erro: Para bloquear um espaço, você deve informar o Motivo e o Responsável.");
         return; // Interrompe o envio
@@ -160,7 +159,7 @@ function prepararEdicaoSala(sala) {
     document.getElementById('cap_salao').value = sala.cap_salao;
     document.getElementById('bloq_salao').value = "false"; // Sempre false ao editar, pois só editamos liberados
     
-    toggleBloqueio("false"); // Garante que a seção de motivo fique escondida
+    toggleBloqueio("false");
     
     const btn = document.getElementById('btnSalvar');
     btn.textContent = "Atualizar Dados";
@@ -168,7 +167,7 @@ function prepararEdicaoSala(sala) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// DESBLOQUEIO (Usa a rota PUT /salas/desbloquear/:id do seu server.js)
+// DESBLOQUEIO 
 async function confirmarDesbloqueio() {
     const resp = document.getElementById('resp_liberacao').value.trim();
     const data = document.getElementById('data_liberacao').value;
@@ -210,7 +209,7 @@ async function excluirSala(id) {
 function abrirModalDesbloqueio(id) {
     salaParaDesbloquearId = id;
     
-    // Preenche a data de hoje automaticamente para facilitar a vida do usuário
+    // Preenche a data de hoje
     const hoje = new Date().toISOString().split('T')[0];
     document.getElementById('data_liberacao').value = hoje;
     
